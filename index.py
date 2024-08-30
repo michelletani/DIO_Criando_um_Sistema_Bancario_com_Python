@@ -4,27 +4,36 @@ extrato = ""
 numero_saque = 0
 LIMITE_SAQUE = 3
 
-def operacao_selecionada(operacao):
-    global saldo
-    global limite
-    global extrato
-    global numero_saque
-    global LIMITE_SAQUE
+opcoes = """
+            Digite sua operação: 
+                [1] Depósito
+                [2] Saque
+                [3] Extrato
+                [4] Sair
+            """
+
+while True:
+
+    operacao = int(input(opcoes))
 
     #------------------------------------Depósito----------------------------------------
     if (operacao == 1):
         valor_deposito = float(input("Digite o valor: "))
-        saldo += valor_deposito
-        extrato += f"+ {valor_deposito:.2f}\n"
+
+        if(valor_deposito > 0):
+            saldo += valor_deposito
+            extrato += f"+ {valor_deposito:.2f}\n"
+
+        else:
+            print("Valor inválido!")
 
         print(f"Saldo: {saldo:.2f}")
-    
+
     #--------------------------------------Saque------------------------------------------
     elif (operacao == 2):
         
         if (numero_saque >= LIMITE_SAQUE):
             print("Limite de saques atingido.")
-            return
         
         valor_saque = float(input("Digite o valor: "))
 
@@ -40,20 +49,23 @@ def operacao_selecionada(operacao):
             extrato += f"- {valor_saque:.2f}\n"
             
             print(f"Saldo: {saldo:.2f}")
-    
+
     #-------------------------------------Extrato-----------------------------------------
     elif (operacao == 3):
-        print("extrato:")
-        print(extrato)
+        if(extrato == ""):
+            print("Nenhuma operação realizada.")
 
+        else:    
+            print("extrato:")
+            print(extrato)
+
+        print(f"Saldo: {saldo:.2f}")
+
+    #-------------------------------------Encerrar----------------------------------------
+    elif (operacao == 4):
+        break 
+        
     else:
-        print("Nenhuma operação realizada.")
+        print("Não foi indentificada a operação.")
 
-
-operacao = int(input("""Digite sua operação: 
-                 1 - Depósito
-                 2 - Saque
-                 3 - Extrato
-                 """))
-
-operacao_selecionada(operacao)
+        
